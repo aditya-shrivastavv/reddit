@@ -1,4 +1,5 @@
 import { Flex, Image } from "@chakra-ui/react";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   return (
@@ -14,7 +15,7 @@ export default function Navbar() {
           />
         </Flex>
         {/* <Directory /> */}
-        {/* <SearchBar /> */}
+        <SearchBar />
         {/* <RightContent /> */}
       </Flex>
     </div>
