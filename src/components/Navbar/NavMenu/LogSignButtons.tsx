@@ -1,6 +1,10 @@
+import { authModalState } from "@/atoms/authModalAtom";
 import { Button } from "@chakra-ui/react";
+import { useSetRecoilState } from "recoil";
 
 export default function LogSignButtons() {
+  const setAuthModalState = useSetRecoilState(authModalState);
+
   return (
     <>
       <Button
@@ -9,7 +13,7 @@ export default function LogSignButtons() {
         display={{ base: "none", sm: "flex" }}
         w={{ base: "70px", md: "110px" }}
         mr={2}
-        onClick={() => console.log("Log In")}
+        onClick={() => setAuthModalState({ open: true, window: "login" })}
       >
         Log In
       </Button>
@@ -18,7 +22,7 @@ export default function LogSignButtons() {
         display={{ base: "none", sm: "flex" }}
         w={{ base: "70px", md: "110px" }}
         mr={2}
-        onClick={() => console.log("Sign Up")}
+        onClick={() => setAuthModalState({ open: true, window: "signup" })}
       >
         Sign Up
       </Button>
