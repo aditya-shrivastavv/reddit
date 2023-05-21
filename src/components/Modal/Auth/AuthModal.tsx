@@ -1,12 +1,10 @@
 import { authModalState } from "@/atoms/authModalAtom";
 import {
-  Button,
   Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Text,
@@ -14,15 +12,26 @@ import {
 import { useRecoilState } from "recoil";
 import InputFields from "./InputFields";
 import OAuthButtons from "./OAuthButtons";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/firebaseInit";
+import { useEffect } from "react";
 
 export default function AuthModal() {
   const [modalState, setModalState] = useRecoilState(authModalState);
+
+  const [user, loading, error] = useAuthState(auth);
+
   const closeModal = () => {
     setModalState((prev) => ({
       ...prev,
       open: false,
     }));
   };
+
+  useEffect(() => {
+    if (user) closeModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <>
