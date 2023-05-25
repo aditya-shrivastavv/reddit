@@ -4,6 +4,7 @@ import AuthModal from "@/components/Modal/Auth/AuthModal";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/firebaseInit";
 import { signOut } from "firebase/auth";
+import Icons from "./Icons";
 
 export default function NavMenu() {
   const [user] = useAuthState(auth);
@@ -12,11 +13,8 @@ export default function NavMenu() {
     <>
       <AuthModal />
       <Flex justify={"center"} align={"center"}>
-        {user ? (
-          <Button onClick={() => signOut(auth)}>Logout</Button>
-        ) : (
-          <LogSignButtons />
-        )}
+        {user ? <Icons /> : <LogSignButtons />}
+        {/* <DropMenu /> */}
       </Flex>
     </>
   );

@@ -77,9 +77,33 @@ export default function Login() {
       <Text textAlign={"center"} fontSize={"10pt"} color={"red"}>
         {FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
       </Text>
-      <Button type="submit" w={"100%"} h={"36px"} marginY={2}>
+      <Button
+        type="submit"
+        w={"100%"}
+        h={"36px"}
+        marginY={2}
+        isLoading={loading}
+      >
         Log In
       </Button>
+      <Flex justify={"center"} mb={2}>
+        <Text fontSize={"9pt"} mr={1}>
+          Forgot your password?
+        </Text>
+        <Text
+          fontSize={"9pt"}
+          color={"blue.500"}
+          cursor={"pointer"}
+          onClick={() =>
+            setAuthModalState((prev) => ({
+              ...prev,
+              window: "resetpass",
+            }))
+          }
+        >
+          Reset
+        </Text>
+      </Flex>
       <Flex fontSize={"9pt"} justify={"center"} align={"center"}>
         <Text mr={2}>New here?</Text>
         <Button
