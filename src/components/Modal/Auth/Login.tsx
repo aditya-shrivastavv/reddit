@@ -111,7 +111,6 @@ export default function Login() {
           color={"blue.500"}
           fontWeight={700}
           h={"fit-content"}
-          isLoading={loading}
           onClick={() =>
             setAuthModalState((prev) => ({
               ...prev,
