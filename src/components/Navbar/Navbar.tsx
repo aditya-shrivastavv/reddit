@@ -1,6 +1,7 @@
 import { Flex, Image } from "@chakra-ui/react";
 import SearchBar from "./SearchBar";
 import NavMenu from "./NavMenu/NavMenu";
+import CommunityDropMenu from "./CommunityDropMenu/CommunityDropMenu";
 
 export default function Navbar() {
   return (
@@ -15,7 +16,7 @@ export default function Navbar() {
             display={{ base: "none", md: "unset" }}
           />
         </Flex>
-        {/* <Directory /> */}
+        <CommunityDropMenu />
         <SearchBar />
         <NavMenu />
       </Flex>
