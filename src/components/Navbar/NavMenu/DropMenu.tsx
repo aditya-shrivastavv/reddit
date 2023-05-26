@@ -8,6 +8,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { User, signOut } from "firebase/auth";
 import { FC } from "react";
@@ -38,7 +39,29 @@ const DropMenu: FC<DropMenuProps> = ({ user }) => {
       >
         <Center>
           {user ? (
-            <Icon as={FaRedditSquare} fontSize={24} mr={1} color={"gray.300"} />
+            <>
+              <Icon
+                as={FaRedditSquare}
+                fontSize={24}
+                mr={1}
+                color={"gray.300"}
+              />
+              <Flex
+                direction={"column"}
+                display={{ base: "none", lg: "flex" }}
+                fontSize={"8pt"}
+                align={"flex-start"}
+                mr={8}
+              >
+                <Text fontWeight={700}>
+                  {user?.displayName || user.email?.split("@")[0]}
+                </Text>
+                <Flex>
+                  <Icon as={IoSparkles} color={"brand.reddit"} mr={1} />
+                  <Text color={"gray.400"}>1 karma</Text>
+                </Flex>
+              </Flex>
+            </>
           ) : (
             <Icon as={VscAccount} fontSize={24} color={"gray.400"} mr={1} />
           )}
