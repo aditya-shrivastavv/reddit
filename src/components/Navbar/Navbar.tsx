@@ -24,9 +24,9 @@ export default function Navbar() {
           <Image src="/images/redditFace.svg" alt="" h={"30px"} />
           <Image
             src="/images/redditText.svg"
-            alt=""
             h={"46px"}
             display={{ base: "none", md: "unset" }}
+            alt=""
           />
         </Flex>
         {user && <CommunityDropMenu />}
