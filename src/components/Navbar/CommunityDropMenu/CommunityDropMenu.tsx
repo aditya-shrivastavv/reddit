@@ -11,6 +11,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { TiHome } from "react-icons/ti";
+import CommunitesList from "./CommunitesList";
 
 const CommunityDropMenu: FC = () => {
   const [open, setOpen] = useState(false);
@@ -45,8 +46,7 @@ const CommunityDropMenu: FC = () => {
         </Flex>
       </MenuButton>
       <MenuList maxHeight="300px" overflow="scroll" overflowX="hidden">
-        {/* CommunitesList */}
-        Communities List
+        <CommunitesList />
       </MenuList>
     </Menu>
   );
