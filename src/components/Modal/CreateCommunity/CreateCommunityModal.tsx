@@ -66,27 +66,37 @@ const CreateCommunityModal: FC<CreateCommunityModalProps> = ({
       );
     }
 
+    setLoading(true);
     try {
-      setLoading(true);
-
       const communityDocRef = doc(firestore, "communities", communityName);
-      const communityDoc = await getDoc(communityDocRef);
-      if (communityDoc.exists()) {
-        throw new Error(`Sorry, /r${communityName} is taken. Try another.`);
-      }
 
-      await setDoc(communityDocRef, {
-        creatorId: user?.uid,
-        createdAt: serverTimestamp(),
-        numberOfMembers: 1,
-        privacyType: communityType,
+      await runTransaction(firestore, async (transaction) => {
+        // check if the community with the name exists.
+        const communityDoc = await transaction.get(communityDocRef);
+        if (communityDoc.exists()) {
+          throw new Error(`Sorry, /r${communityName} is taken. Try another.`);
+        }
+        // create the community
+        transaction.set(communityDocRef, {
+          creatorId: user?.uid,
+          createdAt: serverTimestamp(),
+          numberOfMembers: 1,
+          privacyType: communityType,
+        });
+        // associate the community with the user
+        transaction.set(
+          doc(firestore, `users/${user?.uid}/communityLink`, communityName),
+          {
+            communityId: communityName,
+            isModerator: true,
+          }
+        );
       });
-      setLoading(false);
     } catch (error: any) {
       console.log("Transaction error (handleCreateCommunity) :", error);
-
       setError(error.message);
     }
+    setLoading(false);
   };
 
   return (
