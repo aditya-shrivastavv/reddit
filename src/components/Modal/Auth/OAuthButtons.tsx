@@ -2,6 +2,7 @@ import { auth, firestore } from "@/firebase/firebaseInit";
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
 export default function OAuthButtons() {
@@ -12,6 +13,10 @@ export default function OAuthButtons() {
     const userSynthesized = JSON.parse(JSON.stringify(user));
     await setDoc(userDocRef, userSynthesized);
   };
+
+  useEffect(() => {
+    if (user) createUserDocument(user.user);
+  }, [user]);
 
   return (
     <Flex direction={"column"} w={"100%"} mb={4}>
