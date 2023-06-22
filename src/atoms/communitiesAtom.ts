@@ -10,7 +10,7 @@ export interface Community {
   imageUrl?: string;
 }
 
-interface CommunityLink {
+export interface CommunityLink {
   communityId: string;
   isModerator?: boolean;
   imageURL?: string;

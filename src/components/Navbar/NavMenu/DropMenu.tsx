@@ -19,16 +19,23 @@ import { IoSparkles } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogin } from "react-icons/md";
 import { auth } from "@/firebase/firebaseInit";
-import { useSetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/authModalAtom";
 import { truncate } from "fs";
+import { communitiesStateAtom } from "@/atoms/communitiesAtom";
 
 interface DropMenuProps {
   user?: User | null;
 }
 
 const DropMenu: FC<DropMenuProps> = ({ user }) => {
+  const resetCommunityState = useResetRecoilState(communitiesStateAtom);
   const setAuthModalState = useSetRecoilState(authModalState);
+
+  async function logout() {
+    await signOut(auth);
+    resetCommunityState();
+  }
 
   return (
     <Menu>
@@ -86,7 +93,7 @@ const DropMenu: FC<DropMenuProps> = ({ user }) => {
               fontSize={"10pt"}
               fontWeight={700}
               _hover={{ color: "white", bgColor: "blue.500" }}
-              onClick={() => signOut(auth)}
+              onClick={logout}
             >
               <Flex align={"center"}>
                 <Icon as={MdOutlineLogin} fontSize={20} mr={2} />
