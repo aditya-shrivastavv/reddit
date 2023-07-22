@@ -1,4 +1,5 @@
 import { Community } from "@/atoms/communitiesAtom";
+import CreatePostLink from "@/components/Community/CreatePostLink";
 import Header from "@/components/Community/Header";
 import CommunityNotFound from "@/components/Community/NotFound";
 import PageContent from "@/components/Layouts/PageContent";
@@ -21,7 +22,7 @@ const CommunityPage = ({ communityData }: Props) => {
       <Header communityData={communityData} />
       <PageContent>
         <>
-          <div>LHS</div>
+          <CreatePostLink />
         </>
         <>
           <div>RHS</div>
@@ -53,6 +54,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log("====================================");
     console.log("Error getting community data: ", error);
     console.log("====================================");
+
+    return {
+      redirect: {
+        destination: "/",
+        statusCode: 307,
+      },
+    };
   }
 }
 
